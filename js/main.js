@@ -1,6 +1,7 @@
 $(function(){
   const $yomi = $("#yomi");
   const $mondai = $("#mondai");
+  const $finishPanel = $("#finish-panel");
 
   const mondai_list = [
     {yomi: "ごはん", text:"gohan"},
@@ -14,7 +15,6 @@ $(function(){
   let max_length = 3;
   let question_number = 0;
   let question_limit = 4;
-
 
   $(document).on("keypress",function(e){
     const $target = $("#char-"+char_index);
@@ -47,8 +47,13 @@ $(function(){
     }
 
     $mondai.html(newHtml);
-
     $yomi.text(mondai_list[question_number]["yomi"]);
+  }
+
+  function finish() {
+    $finishPanel.removeClass("hidden");
+    $yomi.hide();
+    $mondai.hide();
   }
 
 });
