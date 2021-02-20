@@ -1,9 +1,7 @@
 $(function(){
-  let char_index = 1;
-  let max_length = 3;
-  let question_number = 1;
   const $yomi = $("#yomi");
   const $mondai = $("#mondai");
+
   const mondai_list = [
     {yomi: "ごはん", text:"gohan"},
     {yomi: "おすし", text:"osushi"},
@@ -11,6 +9,12 @@ $(function(){
     {yomi: "バナナ", text:"banana"},
     {yomi: "くつした", text:"kutusita"},
   ];
+
+  let char_index = 1;
+  let max_length = 3;
+  let question_number = 0;
+  let question_limit = 4;
+
 
   $(document).on("keypress",function(e){
     const $target = $("#char-"+char_index);
@@ -20,12 +24,17 @@ $(function(){
       $target.addClass('correct');
       char_index++;
     }
+    
+    if (question_limit < question_number){
+      alert('問題終了');
+    }
 
     if(max_length < char_index){
       changeQuestionWord();
       char_index = 1;
       question_number++;
     }
+
   });
   
 
