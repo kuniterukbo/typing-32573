@@ -11,6 +11,7 @@ $(function(){
     {yomi: "バナナ", text:"banana"},
     {yomi: "くつした", text:"kutusita"},
   ];
+
   $(document).on("keypress",function(e){
     const $target = $("#char-"+char_index);
     const char = $target.text();
@@ -19,16 +20,26 @@ $(function(){
       $target.addClass('correct');
       char_index++;
     }
+
+    if(max_length < char_index){
+      changeQuestionWord();
+      char_index = 1;
+      question_number++;
+    }
   });
   
-  if(max_length < question_number){
-    changeQuestionWord();
-    question_number++;
-  }
 
   function changeQuestionWord() {
-    $yomi.text(mondai_list[question_number]["yomi"]);
+    const word = mondai_list[question_number]['text'];
+    max_length = word.length;
+    let newHtml = "";
+    for(let i = 0; i < max_length; i++){
+      newHtml += '<p id="char-'+(i+1)+'" class="text default">'+word[i]+'</p>';
+    }
 
+    $mondai.html(newHtml);
+
+    $yomi.text(mondai_list[question_number]["yomi"]);
   }
 
 });
