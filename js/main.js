@@ -10,12 +10,25 @@ $(function(){
     {yomi: "サイフ", text:"saifu"},
     {yomi: "バナナ", text:"banana"},
     {yomi: "くつした", text:"kutusita"},
+    {yomi:'なべ', text:'nabe'},
+    {yomi:'あし', text:'ashi'},
+    {yomi:'パソコン', text:'pasokon'},
+    {yomi:'けいたい', text:'keitai'},
+    {yomi:'ふとん', text:'futon'},
   ];
 
+  
   let char_index = 1;
   let max_length = 3;
-  let question_number = 0;
-  let question_limit = 4;
+  let question_number = 1;
+  let question_limit = 3;
+  
+  changeQuestionWord(0);
+  
+  $countSelect.on("change", function(e){
+    question_limit = Number($countSelect.val());
+    changeQuestionWord(0);
+  });
 
   $(document).on("keypress",function(e){
     const $target = $("#char-"+char_index);
@@ -31,16 +44,17 @@ $(function(){
     }
 
     if(max_length < char_index){
-      changeQuestionWord();
+      changeQuestionWord(question_number);
       char_index = 1;
       question_number++;
     }
 
   });
+
   
 
-  function changeQuestionWord() {
-    const word = mondai_list[question_number]['text'];
+  function changeQuestionWord(index) {
+    const word = mondai_list[index]['text'];
     max_length = word.length;
     let newHtml = "";
     for(let i = 0; i < max_length; i++){
@@ -48,7 +62,7 @@ $(function(){
     }
 
     $mondai.html(newHtml);
-    $yomi.text(mondai_list[question_number]["yomi"]);
+    $yomi.text(mondai_list[index]["yomi"]);
   }
 
   function finish() {
