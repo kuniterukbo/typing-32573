@@ -4,6 +4,12 @@ $(function(){
   const $finishPanel = $("#finish-panel");
   const $countSelect = $("#count-select");
 
+  let char_index = 1;
+  let max_length = 3;
+  let question_number = 1;
+  let question_limit = 3;
+  let done_question = {};
+
   const mondai_list = [
     {yomi: "ごはん", text:"gohan"},
     {yomi: "おすし", text:"osushi"},
@@ -18,16 +24,13 @@ $(function(){
   ];
 
   
-  let char_index = 1;
-  let max_length = 3;
-  let question_number = 1;
-  let question_limit = 3;
   
-  changeQuestionWord(0);
+  changeQuestionWord(getQuestionNumber());
   
   $countSelect.on("change", function(e){
     question_limit = Number($countSelect.val());
-    changeQuestionWord(0);
+    done_question = {};
+    changeQuestionWord(getQuestionNumber());
   });
 
   $(document).on("keypress",function(e){
@@ -37,10 +40,6 @@ $(function(){
       $target.removeClass('default');
       $target.addClass('correct');
       char_index++;
-    }
-    
-    if (question_limit < question_number){
-      alert('問題終了');
     }
 
     if(max_length < char_index){
@@ -64,20 +63,24 @@ $(function(){
     for(let i = 0; i < max_length; i++){
       newHtml += '<p id="char-'+(i+1)+'" class="text default">'+word[i]+'</p>';
     }
-
     $mondai.html(newHtml);
     $yomi.text(mondai_list[index]["yomi"]);
   }
-
+  
+  function getQuestionNumber(){
+    let random_number = Math.floor(Math.random()*10);
+    while(done_question[random_number] !== undefined){
+      random_number = Math.floor(Math.random() * 10);
+    }
+    done_question[random_number] = random_number;
+    return random_number;
+  }
+  
   function finish() {
     $finishPanel.removeClass("hidden");
     $yomi.hide();
     $mondai.hide();
   }
 
-  function getQuestionNumber(){
-    const random_number = Math.floor(Math.random()*10);
-    return random_number;
-  }
 
 });
