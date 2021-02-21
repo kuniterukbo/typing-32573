@@ -71,4 +71,9 @@ $(function(){
     $mondai.hide();
   }
 
+  function getQuestionNumber(){
+    const random_number = Math.floor(Math.random()*10);
+    return random_number;
+  }
+
 });
