@@ -44,9 +44,13 @@ $(function(){
     }
 
     if(max_length < char_index){
-      changeQuestionWord(question_number);
-      char_index = 1;
       question_number++;
+      if(question_limit < question_number){
+        finish();
+        return;
+      }
+      changeQuestionWord(getQuestionNumber());
+      char_index = 1;
     }
 
   });
