@@ -2,6 +2,7 @@ $(function(){
   const $yomi = $("#yomi");
   const $mondai = $("#mondai");
   const $finishPanel = $("#finish-panel");
+  const $countSelect = $("#count-select");
 
   const mondai_list = [
     {yomi: "ごはん", text:"gohan"},
