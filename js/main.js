@@ -3,12 +3,17 @@ $(function(){
   const $mondai = $("#mondai");
   const $finishPanel = $("#finish-panel");
   const $countSelect = $("#count-select");
+  const $correctMassage = $("#correct-message");
+  const $mistakeMassage = $("#mistake-message");
 
   let char_index = 1;
   let max_length = 3;
   let question_number = 1;
   let question_limit = 3;
   let done_question = {};
+  let typing_cnt = 0;//タイプした合計
+  let correct_cnt = 0;//正解タイプ数
+  let mistake_cnt = 0;//間違えたタイプ数
 
   const mondai_list = [
     {yomi: "ごはん", text:"gohan"},
@@ -34,12 +39,17 @@ $(function(){
   });
 
   $(document).on("keypress",function(e){
+    typing_cnt++;
+
     const $target = $("#char-"+char_index);
     const char = $target.text();
     if(e.key === char){
       $target.removeClass('default');
       $target.addClass('correct');
       char_index++;
+      correct_cnt++;
+    } else {
+      mistake_cnt++;
     }
 
     if(max_length < char_index){
@@ -80,6 +90,8 @@ $(function(){
     $finishPanel.removeClass("hidden");
     $yomi.hide();
     $mondai.hide();
+    $correctMassage.text("正解数;"+correct_cnt+"/"+typing_cnt+"("+Math.floor(correct_cnt/typing_cnt*100)+"%)");
+    $mistakeMassage.text('間違い数:'+mistake_cnt+"/"+typing_cnt+"("+Math.floor(mistake_cnt/typing_cnt*100)+"%)");
   }
 
 
