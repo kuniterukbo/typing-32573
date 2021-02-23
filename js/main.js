@@ -15,6 +15,8 @@ $(function(){
   let typing_cnt = 0;//タイプした合計
   let correct_cnt = 0;//正解タイプ数
   let mistake_cnt = 0;//間違えたタイプ数
+  let start_game = false;
+  let start_time = 0;
 
   const mondai_list = [
     {yomi: "ごはん", text:"gohan"},
@@ -30,7 +32,7 @@ $(function(){
   ];
 
   
-  
+  //問題数の選択----------------------------------
   changeQuestionWord(getQuestionNumber());
   
   $countSelect.on("change", function(e){
@@ -38,8 +40,18 @@ $(function(){
     done_question = {};
     changeQuestionWord(getQuestionNumber());
   });
-
+  //------------------------------------------------
+  //開始-------------------------------------------
   $(document).on("keypress",function(e){
+
+    if(!start_game && e.keyCode === 32){
+      start_game = true;
+      start_time = performance.now();
+      return;
+    } else if (!start_game){
+      return;
+    }
+    
     typing_cnt++;
 
     const $target = $("#char-"+char_index);
@@ -64,7 +76,7 @@ $(function(){
     }
 
   });
-
+  //----------------------------------------------------------
   
 
   function changeQuestionWord(index) {
@@ -93,6 +105,7 @@ $(function(){
     $mondai.hide();
     $correctMassage.text("正解数;"+correct_cnt+"/"+typing_cnt+"("+Math.floor(correct_cnt/typing_cnt*100)+"%)");
     $mistakeMassage.text('間違い数:'+mistake_cnt+"/"+typing_cnt+"("+Math.floor(mistake_cnt/typing_cnt*100)+"%)");
+
   }
 
 
