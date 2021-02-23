@@ -5,6 +5,7 @@ $(function(){
   const $countSelect = $("#count-select");
   const $correctMassage = $("#correct-message");
   const $mistakeMassage = $("#mistake-message");
+  const $timeMessage = $("#time-message");
 
   let char_index = 1;
   let max_length = 3;
