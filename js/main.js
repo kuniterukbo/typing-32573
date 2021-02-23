@@ -106,6 +106,9 @@ $(function(){
     $correctMassage.text("正解数;"+correct_cnt+"/"+typing_cnt+"("+Math.floor(correct_cnt/typing_cnt*100)+"%)");
     $mistakeMassage.text('間違い数:'+mistake_cnt+"/"+typing_cnt+"("+Math.floor(mistake_cnt/typing_cnt*100)+"%)");
 
+    const end_time = performance.now();
+    const typing_time = ((end_time - start_time)/1000).toFixed(2);
+    $timeMessage.text("かかった時間:"+typing_time+"秒");
   }
 
 
