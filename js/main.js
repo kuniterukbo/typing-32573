@@ -6,6 +6,7 @@ $(function(){
   const $correctMassage = $("#correct-message");
   const $mistakeMassage = $("#mistake-message");
   const $timeMessage = $("#time-message");
+  const $startMessage = $("#start-message");
 
   let char_index = 1;
   let max_length = 3;
@@ -42,10 +43,14 @@ $(function(){
   });
   //------------------------------------------------
 
-  //開始、タイピング中-------------------------------------------
+  //開始、タイピング中------------------------------
   $(document).on("keypress",function(e){
 
     if(!start_game && e.keyCode === 32){
+      $startMessage.hide();
+      $countSelect.hide();
+      $yomi.show();
+      $mondai.show();
       start_game = true;
       start_time = performance.now();
       return;
@@ -77,7 +82,7 @@ $(function(){
     }
 
   });
-  //----------------------------------------------------------
+  //------------------------------------------------------
   //ゲーム再開--------------------------------------------
   $("#start-button").on("click",function(e){
     init();
