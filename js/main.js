@@ -32,9 +32,12 @@ $(function(){
     {yomi:'ふとん', text:'futon'},
   ];
 
+
+  $yomi.hide();
+  $mondai.hide();
+  changeQuestionWord(getQuestionNumber());
   
   //問題数の選択----------------------------------
-  changeQuestionWord(getQuestionNumber());
   
   $countSelect.on("change", function(e){
     question_limit = Number($countSelect.val());
@@ -89,7 +92,7 @@ $(function(){
   });
   //------------------------------------------------
   
-
+//初期化-------------------------------------------
   function init(){
     char_index = 1;
     question_number = 1;
@@ -105,10 +108,12 @@ $(function(){
     changeQuestionWord(getQuestionNumber());
 
     $finishPanel.addClass("hidden");
-    $yomi.show();
-    $mondai.show();
+    $yomi.hide();
+    $mondai.hide();
+    $startMessage.show();
+    $countSelect.show();
   }
-
+//--------------------------------------------
   function changeQuestionWord(index) {
     const word = mondai_list[index]['text'];
     max_length = word.length;
