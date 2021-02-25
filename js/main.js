@@ -41,7 +41,8 @@ $(function(){
     changeQuestionWord(getQuestionNumber());
   });
   //------------------------------------------------
-  //開始-------------------------------------------
+
+  //開始、タイピング中-------------------------------------------
   $(document).on("keypress",function(e){
 
     if(!start_game && e.keyCode === 32){
@@ -77,7 +78,31 @@ $(function(){
 
   });
   //----------------------------------------------------------
+  //ゲーム再開--------------------------------------------
+  $("#start-button").on("click",function(e){
+    init();
+  });
+  //------------------------------------------------
   
+
+  function init(){
+    char_index = 1;
+    question_number = 1;
+    question_limit = 3;
+    done_question = {};
+    typing_cnt = 0;
+    correct_cnt = 0;
+    mistake_cnt = 0;
+    start_game = false;
+    start_time = 0;
+    $countSelect.val("3");
+
+    changeQuestionWord(getQuestionNumber());
+
+    $finishPanel.addClass("hidden");
+    $yomi.show();
+    $mondai.show();
+  }
 
   function changeQuestionWord(index) {
     const word = mondai_list[index]['text'];
