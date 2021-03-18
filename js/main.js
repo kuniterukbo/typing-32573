@@ -7,6 +7,7 @@ $(function(){
   const $mistakeMassage = $("#mistake-message");
   const $timeMessage = $("#time-message");
   const $startMessage = $("#start-message");
+  const $missTypeKey = $("#miss-type-key");
 
   let char_index = 1;
   let max_length = 3;
@@ -18,6 +19,7 @@ $(function(){
   let mistake_cnt = 0;//間違えたタイプ数
   let start_game = false;
   let start_time = 0;
+  let miss_type_keys = [];
 
   const mondai_list = [
     {yomi: "ごはん", text:"gohan"},
@@ -46,7 +48,7 @@ $(function(){
   });
   //------------------------------------------------
 
-  //開始、タイピング中------------------------------
+  //開始、ゲーム中、終了------------------------------
   $(document).on("keypress",function(e){
 
     if(!start_game && e.keyCode === 32){
@@ -72,6 +74,9 @@ $(function(){
       correct_cnt++;
     } else {
       mistake_cnt++;
+      miss_type_keys.push(e.key);
+      console.log(miss_type_keys);
+
     }
 
     if(max_length < char_index){
@@ -144,6 +149,9 @@ $(function(){
     const end_time = performance.now();
     const typing_time = ((end_time - start_time)/1000).toFixed(2);
     $timeMessage.text("かかった時間:"+typing_time+"秒");
+    
+    let miss_type_keys_set = [...new Set(miss_type_keys)];
+    $missTypeKey.text("ミスタイプキー" + miss_type_keys_set);
   }
 
 
