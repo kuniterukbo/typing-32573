@@ -109,6 +109,10 @@ $(function(){
     start_game = false;
     start_time = 0;
     $countSelect.val("3");
+    miss_type_text = ""
+    miss_type_keys = [];
+    miss_type_cnt = {};
+    miss_type_keys_set = [];
 
     changeQuestionWord(getQuestionNumber());
 
