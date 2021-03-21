@@ -75,8 +75,6 @@ $(function(){
     } else {
       mistake_cnt++;
       miss_type_keys.push(e.key);
-      console.log(miss_type_keys);
-
     }
 
     if(max_length < char_index){
@@ -91,6 +89,7 @@ $(function(){
 
   });
   //------------------------------------------------------
+
   //ゲーム再開--------------------------------------------
   $("#start-button").on("click",function(e){
     init();
@@ -153,29 +152,28 @@ $(function(){
     const end_time = performance.now();
     const typing_time = ((end_time - start_time)/1000).toFixed(2);
     $timeMessage.text("かかった時間:"+typing_time+"秒");
-        // -----------
-    let miss_type_keys_set = [...new Set(miss_type_keys)];
-    let miss_type_cnt = {};
-    for(i = 0; i < miss_type_keys.length; i++){
-      let miss_type_key = miss_type_keys[i];
-      miss_type_cnt[miss_type_key] = (miss_type_cnt[miss_type_key])? miss_type_cnt[miss_type_key] + 1 : 1;
-    }
-      // -------
-    let miss_type_result = []
-    for(let i = 0; i < miss_type_cnt.length; i++ ){
-      miss_type_cnt[i]
-    }
-      // -------
-    let miss_type_text = ""
-    for (let i = 0; i < miss_type_keys_set.length; i++ ){
-      miss_type_text += miss_type_keys_set[i] + ": ";
-      miss_type_text += miss_type_cnt[miss_type_keys_set[i]] + ", ";
-    }
+    missTypeCount()
     
-    console.log(miss_type_keys_set);
-    $missTypeKey.text(miss_type_text);
-    console.log(miss_type_cnt);
+  }
+  
+  // ミスタイプカウントの表示--------------------------------------------------------------
+  function missTypeCount(){
+  let miss_type_keys_set = [...new Set(miss_type_keys)];
+
+  let miss_type_cnt = {};
+  for(i = 0; i < miss_type_keys.length; i++){
+  let miss_type_key = miss_type_keys[i];
+  miss_type_cnt[miss_type_key] = (miss_type_cnt[miss_type_key])? miss_type_cnt[miss_type_key] + 1 : 1;
+  }
+  
+  let miss_type_text = ""
+  for (let i = 0; i < miss_type_keys_set.length; i++ ){
+  miss_type_text += miss_type_keys_set[i] + ": ";
+  miss_type_text += miss_type_cnt[miss_type_keys_set[i]] + ", ";
   }
 
+  $missTypeKey.text(miss_type_text);
+  }
+// ------------------------------------------------------------------------------------
 
 });
