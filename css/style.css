@@ -45,3 +45,11 @@
   padding: 16px;
 }
 
+#misutaipu{
+  display: flex;
+  justify-content: center;
+}
+
+#miss-type-key{
+  margin-left: 10px;
+}
